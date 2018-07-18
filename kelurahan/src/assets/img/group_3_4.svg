@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="141" height="143" viewBox="0 0 141 143">
+    <defs>
+        <path id="a" d="M126 9.108h5V141c-.409.712-1.233 1.069-2.473 1.069-1.24 0-2.082-.357-2.527-1.069V9.108z"/>
+        <filter id="b" width="140%" height="101.5%" x="-20%" y="-.8%" filterUnits="objectBoundingBox">
+            <feOffset dx="2" dy="1" in="SourceAlpha" result="shadowOffsetInner1"/>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" k2="-1" k3="1" operator="arithmetic" result="shadowInnerInner1"/>
+            <feColorMatrix in="shadowInnerInner1" values="0 0 0 0 0.666241497 0 0 0 0 0.666241497 0 0 0 0 0.666241497 0 0 0 1 0"/>
+        </filter>
+        <path id="c" d="M10 9h5v131.892c-.409.712-1.233 1.068-2.473 1.068-1.24 0-2.082-.356-2.527-1.068V9z"/>
+        <filter id="d" width="140%" height="101.5%" x="-20%" y="-.8%" filterUnits="objectBoundingBox">
+            <feOffset dx="2" dy="1" in="SourceAlpha" result="shadowOffsetInner1"/>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" k2="-1" k3="1" operator="arithmetic" result="shadowInnerInner1"/>
+            <feColorMatrix in="shadowInnerInner1" values="0 0 0 0 0.666241497 0 0 0 0 0.666241497 0 0 0 0 0.666241497 0 0 0 1 0"/>
+        </filter>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <path fill="#9380EA" d="M0 27.954L11.017 37V26.913H0zM140.017 27.954L129 37V26.913h11.017z"/>
+        <g>
+            <use fill="#888" xlink:href="#a"/>
+            <use fill="#000" filter="url(#b)" xlink:href="#a"/>
+        </g>
+        <g>
+            <use fill="#888" xlink:href="#c"/>
+            <use fill="#000" filter="url(#d)" xlink:href="#c"/>
+        </g>
+        <path fill="#A28FFD" d="M0 .913h140v27H0v-27z"/>
+        <text fill="#FFF" font-family="ProximaNova-Bold, Proxima Nova" font-size="16" font-weight="bold">
+            <tspan x="12" y="19">Selamat Datang</tspan>
+        </text>
+    </g>
+</svg>

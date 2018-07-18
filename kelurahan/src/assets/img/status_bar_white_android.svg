@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="20" viewBox="0 0 360 20">
+    <g fill="none" fill-rule="evenodd">
+        <path d="M0 0h360v20H0z" opacity=".1"/>
+        <text fill="#FFF" font-family="ProximaNova-Regular, Proxima Nova" font-size="14" opacity=".9" transform="translate(321 2)">
+            <tspan x=".506" y="14">12:30</tspan>
+        </text>
+        <path d="M299 2h16v16h-16z"/>
+        <path fill="#FFF" d="M308 3.875V3h-3v.875h-3V17h9V3.875z"/>
+        <path d="M279 2h16v16h-16z"/>
+        <path fill="#FFF" d="M279 17h14V3z"/>
+        <g>
+            <path d="M260 2h16v16h-16z"/>
+            <path fill="#FFF" d="M258.977 6.016A14.934 14.934 0 0 1 268 3c3.387 0 6.512 1.123 9.023 3.016L268 17l-9.023-10.984z"/>
+        </g>
+    </g>
+</svg>
