@@ -48,7 +48,7 @@ export default {
         vertical-align: middle;
     }
     .popup-container {
-        width: 360px;
+        width: 289px;
         margin: 0px auto;
         padding-top: 36px;
         background-color: #fff;

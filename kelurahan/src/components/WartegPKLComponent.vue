@@ -1,11 +1,11 @@
 <template>
   <div>
     <div v-if="showDetail===false" class="list-page-2">
-      <div class="backTop">
+      <!--div class="backTop">
         <img class="blackArrow" v-bind:src="'src/assets/img/arrow_back.svg'"  v-on:click="gotoPage('/')" width="24px" height="24px"/>
-      </div>
+      </div-->
       <div class="titleInfo black">
-        Daftar Warteg / PKL
+        Daftar UKM
       </div>
     </div>
     <div v-if="showDetail===false" class="det">
@@ -29,23 +29,47 @@
     </div>
     <div class="warteg-full" v-if="showDetail===true">
       <div class="list-page-2">
-        <div class="backTop">
+        <!--div class="backTop">
           <img class="blackArrow" v-bind:src="'src/assets/img/arrow_back.svg'"  v-on:click="showDetail=false;isPause=false;" width="24px" height="24px"/>
-        </div>
+        </div-->
         <div class="titleInfo black">
           Detail Informasi
         </div>
       </div>
+
       <div class="overflow-detail">
-        <div class="bg-img-warteg">
-          <img height="180px" width="360px" v-bind:src="'src/assets/carousel-warteg/'+wartegs[selected].pic" />
-          <center><h1 class="warteg-name">{{wartegs[selected].nama}}</h1></center>
+        <div style="margin-left:-16px;margin-right:-16px;">
+          <b-carousel id="carousel1"
+                style="text-shadow: 1px 1px 2px #333;"
+                controls
+                indicators
+                background="#ababab"
+                :interval="4000"
+                img-width="360"
+                img-height="180"
+                v-model="slide"
+                @sliding-start="onSlideStart"
+                @sliding-end="onSlideEnd"
+          >
+              <!-- Slides with image only -->
+              <b-carousel-slide>
+                <img slot="img" height="180px" width="360px" v-bind:src="'src/assets/carousel-warteg/'+wartegs[selected].pic[0].fotoPic" />
+              </b-carousel-slide>
+              <b-carousel-slide>
+                <img slot="img"  height="180px" width="360px" v-bind:src="'src/assets/carousel-warteg/'+wartegs[selected].pic[1].fotoPic" />
+              </b-carousel-slide>
+              <b-carousel-slide>
+                <img slot="img" height="180px" width="360px" v-bind:src="'src/assets/carousel-warteg/'+wartegs[selected].pic[2].fotoPic" />
+              </b-carousel-slide>
+          </b-carousel>
+
         </div>
-        <center>
-          <div class="keterangan-warteg">
-            {{wartegs[selected].deskripsi}}
-          </div>
-        </center>
+        <div class="bg-img-warteg">
+          <h1 class="warteg-name">{{wartegs[selected].nama}}</h1>
+        </div>
+        <div class="keterangan-warteg">
+          {{wartegs[selected].deskripsi}}
+        </div>
         <div class="pelengkap">
           <table>
             <tr>
@@ -79,6 +103,11 @@
           <div class="menu">
             <font class="black"><b>Menu</b></font>
             <div class="lifeline">
+              <audio id="track" ontimeupdate="document.getElementById('tracktime').innerHTML = Math.floor(this.currentTime) + ' / ' + Math.floor(this.duration);" hidden>
+                <source v-bind:src="'src/assets/sound/funny_sound.mp3'" type="audio/mpeg">
+              </audio>
+              <!--h6>Audio {{audio}} %</h6>
+              <span id="tracktime">0 / 0</span-->
               <table>
                 <tr>
                   <td>
@@ -99,42 +128,42 @@
                     ></vue-slider>
                   </td>
                   <td style="padding-left:8px;">
-                    <img v-if="isPause===false" @click="isPause=true;" v-bind:src="'src/assets/img/play_on.svg'" width="24px" height="24px"/>
-                    <img v-if="isPause===true" @click="isPause=false;" v-bind:src="'src/assets/img/pause_on.svg'" width="24px" height="24px"/>
+                    <div @click="timeUpdate()">
+                      <div onclick="document.getElementById('track').play();">
+                        <img v-if="isPause===false" @click="isPause=true;" v-bind:src="'src/assets/img/play_on.svg'" width="24px" height="24px"/>
+                      </div>
+                    </div>
+                    <div onclick="document.getElementById('track').pause();">
+                      <img v-if="isPause===true" @click="isPause=false;" v-bind:src="'src/assets/img/pause_on.svg'" width="24px" height="24px"/>
+                    </div>
                   </td>
                 </tr>
               </table>
             </div>
             <!--START - Bahan Baku-->
             <div class="baku gray">
-              <table>
-                <tr>
-                  <td>Bahan Baku: </td>
-                  <td>
-                    <font v-for="(w,index) in wartegs[selected].bahanBaku">
-                      {{" " + w.item}}<span v-if="index<wartegs[selected].bahanBaku.length-1">,</span>
-                    </font>
-                  </td>
-                </tr>
-              </table>
-            </div>
-            <div class="baku gray">
-              <table>
-                <tr>
-                  <td>Bahan Baku Segar: </td>
-                  <td>
-                    <font v-for="(w,index) in wartegs[selected].bahanBakuSegar">
-                      {{" " + w.item}}<span v-if="index<wartegs[selected].bahanBakuSegar.length-1">,</span>
-                    </font>
-                  </td>
-                </tr>
-              </table>
+              <div style="padding-top:8px;">
+                <font>Bahan Baku:</font>
+              </div>
+              <div style="padding-top:6px;">
+                <font v-for="(w,index) in wartegs[selected].bahanBaku">
+                  {{" " + w.item}}<span v-if="index<wartegs[selected].bahanBaku.length-1">,</span>
+                </font>
+              </div>
+              <div style="padding-top:8px;">
+                <font style="padding-top:8px;">Bahan Baku Segar:</font>
+              </div>
+              <div style="padding-top:6px;">
+                <font v-for="(w,index) in wartegs[selected].bahanBakuSegar">
+                  {{" " + w.item}}<span v-if="index<wartegs[selected].bahanBakuSegar.length-1">,</span>
+                </font>
+              </div>
             </div>
             <!--END - Bahan Baku-->
             <div class="konsultan">
               <center>
                 <p><b>Konsultan</b></p>
-                <img v-bind:src="'src/assets/img-consultant/'+wartegs[selected].konsultan[0].foto" height="50px" width="50px" style="margin-top:16px;margin-bottom:16px;" />
+                <img @click="showImagePic()" v-bind:src="'src/assets/img-consultant/'+wartegs[selected].konsultan[0].foto" height="50px" width="50px" style="margin-top:16px;margin-bottom:16px;border-radius:100%" />
                 <p><b>{{wartegs[selected].konsultan[0].nama}}</b></p>
                 <div @click="loginPopUp()" v-if="wartegs[selected].isKontrak===false" class="nextBTN" v-on:click="gotoPage('/detail')" style="margin-top:16px;"><font class="kontrakSaya">Kontrak Saya</font></div>
                 <div @click="loginPopUp()" v-if="wartegs[selected].isKontrak===true" class="nextBTN" v-on:click="gotoPage('/detail')" style="margin-top:16px;"><font class="kontrakSaya">Sedang Dikontrak</font></div>
@@ -144,12 +173,12 @@
             <pop-comp v-if="!showLogin">
                 <div class="slot-header" slot="header" style="margin-top:-24px;">
                     <!-- <i class="icon-close" @click="!loginPopUp()"></i> -->
-                    <span class="close" @click="!loginPopUp()">x</span><br/>
+                    <!--span class="close" @click="!loginPopUp()"><img v-bind:src="'src/assets/img/close_off.svg'"/></span><br/-->
                     <center><font style="font-size:20px;color:#222222;"><b>How it Works</b></font></center>
                 </div>
                 <div class="slot-body" slot="body">
                     <div class="slot-body-text-container">
-                      <center style="font-size:13px;color:#222222;padding:45px 45px;">
+                      <center style="font-size:16px;color:#222222;padding:45px 45px;">
                         Lakukan langkah di bawah ini untuk melakukan
                         kontrak/putus kontrak dengan konsultan:<br/>
                         1. Buka MicroApps Polling pada link ini:
@@ -168,8 +197,11 @@
                 <div class="slot-footer" slot="footer">
                     <div class="slot-footer-text-container">
                         <center>
-                          <div  v-if="wartegs[selected].isKontrak===false" style="width:100px;height:35px;padding:8px 8px;font-size:16px;color:#4286f5;border-radius:8px;border:1px solid #4286f5;" @click="showBerhasilFunc()">
-                            OK
+                          <div  v-if="wartegs[selected].isKontrak===false" style="margin-left:40px;margin-bottom:8px;float:left;width:100px;height:35px;padding:8px 8px;font-size:16px;color:#888888;border-radius:8px;border:1px solid #888888;" @click="!loginPopUp()">
+                            Batal
+                          </div>
+                          <div  v-if="wartegs[selected].isKontrak===false" style="margin-right:40px;margin-bottom:8px;float:right;width:100px;height:35px;padding:8px 8px;font-size:16px;color:#4286f5;border-radius:8px;border:1px solid #4286f5;" @click="isKontrakTrue(selected);">
+                            Lanjut
                           </div>
                           <div  v-if="wartegs[selected].isKontrak===true" style="width:100px;height:35px;padding:8px 8px;font-size:16px;color:#4286f5;border-radius:8px;border:1px solid #4286f5;" @click="!loginPopUp()">
                             OK
@@ -183,25 +215,43 @@
             <!--START Modal Berhasil Dikontrak-->
             <success-comp v-if="!showBerhasil">
                 <div class="slot-header" slot="header" style="margin-top:-24px;">
-                    <!-- <i class="icon-close" @click="!loginPopUp()"></i> -->
+                  <div style="padding:10px 10px;float:right;" class="close" @click="!showBerhasilFunc()">
+                    <img v-bind:src="'src/assets/img/close_off.svg'"/>
+                  </div><br/>
                 </div>
                 <div class="slot-body" slot="body">
                     <div class="slot-body-text-container">
                       <center>
-                        <font style="font-size:20px;color:#888888;"><b>Berhasil Kontrak</b></font>
+                        <img  style="margin-top:16px;" v-bind:src="'src/assets/img/group_8.svg'"/>
+                        <div style="margin-top:22px;">
+                          <p style="font-size:20px;color:#888888;padding-bottom:22px;"><b>Berhasil Kontrak</b></p>
+                        </div>
                       </center>
                     </div>
                 </div>
                 <div class="slot-footer" slot="footer">
-                    <div class="slot-footer-text-container">
-                        <center>
-                          <div style="float:right;margin-top:38px;padding:16px 16px;font-size:16px;color:#4286f5;" @click="isKontrakTrue(selected)">
-                            OK
-                          </div>
-                        </center>
-                    </div>
                 </div>
             </success-comp>
+            <!--END Modal-->
+
+            <!--START Modal Image-->
+            <img-comp v-if="!showImage">
+                <div class="slot-header" slot="header">
+                  <div class="close" >
+                    <!--img style="float:right;padding-right:8px;" v-bind:src="'src/assets/img/close_off.svg'"/-->
+                  </div>
+                </div>
+                <div class="slot-body" slot="body">
+                    <div class="slot-body-text-container">
+                      <img @click="!showImagePic()" style="float:right;padding-right:8px;position:relative;z-index:2;top:30px;" v-bind:src="'src/assets/img/close_on.svg'"/>
+                      <center>
+                        <img v-bind:src="'src/assets/img-consultant/'+wartegs[selected].konsultan[0].foto" height="200px" width="200px"/>
+                      </center>
+                    </div>
+                </div>
+                <div class="slot-footer" slot="footer">
+                </div>
+            </img-comp>
             <!--END Modal-->
 
           </div>
@@ -212,8 +262,16 @@
 </template>
 <script>
   import vueSlider from 'vue-slider-component';
+  // import Swiper from 'vue-swiper';
+  import BootstrapVue from 'bootstrap-vue'
+  import 'bootstrap/dist/css/bootstrap.css'
+  import 'bootstrap-vue/dist/bootstrap-vue.css'
+  import bCarousel from 'bootstrap-vue/es/components/carousel/carousel';
+  import bCarouselSlide from 'bootstrap-vue/es/components/carousel/carousel-slide';
+  /*import { Carousel, CarouselItem } from 'vue-l-carousel';*/
   import PopComp from './PopUpComponent';
   import SuccessPopComp from './SuccessPopUpComponent';
+  import ImagePopComp from './ImagePopUpComponent';
   export default {
     data(){
       return{
@@ -223,6 +281,10 @@
         isPause:false,
         showLogin:true,
         showBerhasil:true,
+        showImage:true,
+        slide: 0,
+        sliding: null,
+        interv:0,
         wartegs: [
           {
             idWarteg:1,
@@ -232,7 +294,11 @@
             ],
             alamat:"Jl.Cikajang no.16, Jakarta Selatan",
             gambar:"group.png",
-            pic:"1-1.png",
+            pic:[
+              {fotoPic:"1-1.png"},
+              {fotoPic:"1-2.png"},
+              {fotoPic:"1-3.png"},
+            ],
             isKontrak:false,
             jams:[
               {hari:"Senin-Jumat", pukul:"08.00 s.d. 20.00"},
@@ -259,7 +325,11 @@
             ],
             alamat:"Jl.Cikajang no.16, Jakarta Selatan",
             gambar:"group.png",
-            pic:"1-1.png",
+            pic:[
+              {fotoPic:"1-1.png"},
+              {fotoPic:"1-2.png"},
+              {fotoPic:"1-3.png"},
+            ],
             isKontrak:false,
             jams:[
               {hari:"Senin-Jumat", pukul:"08.00 s.d. 20.00"},
@@ -286,7 +356,11 @@
             ],
             alamat:"Jl.Cikajang no.16, Jakarta Selatan",
             gambar:"group.png",
-            pic:"1-1.png",
+            pic:[
+              {fotoPic:"1-1.png"},
+              {fotoPic:"1-2.png"},
+              {fotoPic:"1-3.png"},
+            ],
             isKontrak:false,
             jams:[
               {hari:"Senin-Jumat", pukul:"08.00 s.d. 20.00"},
@@ -313,7 +387,11 @@
             ],
             alamat:"Jl.Cikajang no.16, Jakarta Selatan",
             gambar:"group.png",
-            pic:"1-1.png",
+            pic:[
+              {fotoPic:"1-1.png"},
+              {fotoPic:"1-2.png"},
+              {fotoPic:"1-3.png"},
+            ],
             isKontrak:false,
             jams:[
               {hari:"Senin-Jumat", pukul:"08.00 s.d. 20.00"},
@@ -340,7 +418,11 @@
             ],
             alamat:"Jl.Cikajang no.16, Jakarta Selatan",
             gambar:"group.png",
-            pic:"1-1.png",
+            pic:[
+              {fotoPic:"1-1.png"},
+              {fotoPic:"1-2.png"},
+              {fotoPic:"1-3.png"},
+            ],
             isKontrak:false,
             jams:[
               {hari:"Senin-Jumat", pukul:"08.00 s.d. 20.00"},
@@ -363,9 +445,16 @@
       }
     },
     components: {
+      'b-carousel': bCarousel,
+      'b-carousel-slide': bCarouselSlide,
+      // Swiper,
+      /*'carousel': Carousel,
+      'carousel-item': CarouselItem,*/
       vueSlider,
       'pop-comp': PopComp,
-      'success-comp': SuccessPopComp
+      'success-comp': SuccessPopComp,
+      'img-comp': ImagePopComp,
+
     },
     methods: {
       gotoPage(route) {
@@ -374,18 +463,48 @@
       isKontrakTrue(selected){
         this.wartegs[selected].isKontrak = true;
         this.showBerhasil = !this.showBerhasil;
+        this.showLogin = !this.showLogin;
       },
       selectWarteg(idWarteg){
         this.selected=idWarteg-1;
         this.showDetail=true;
       },
       showBerhasilFunc(){
-        this.showLogin = !this.showLogin;
+
         this.showBerhasil = !this.showBerhasil;
       },
       loginPopUp() {
         this.showLogin = !this.showLogin;
       },
+      showImagePic(){
+        this.showImage = !this.showImage;
+      },
+      onSlideChangeStart (currentPage) {
+        console.log('onSlideChangeStart', currentPage);
+      },
+      onSlideChangeEnd (currentPage) {
+        console.log('onSlideChangeEnd', currentPage);
+      },
+      timeUpdate(){
+        // this.audio= (100/Math.floor(document.getElementById('track').duration))*Math.floor(document.getElementById('track').currentTime);
+        var self = this;
+        if(self.audio==100){
+          this.audio=0;
+        }
+        this.interv = setInterval(function(){
+            if(self.audio == 100){
+                this.audio = 0;
+            }else{
+              self.audio=(100/Math.floor(document.getElementById('track').duration))*Math.floor(document.getElementById('track').currentTime);
+            }
+        },500);
+      },
+      onSlideStart (slide) {
+        this.sliding = true
+      },
+      onSlideEnd (slide) {
+        this.sliding = false
+      }
     }
   }
 </script>
@@ -428,7 +547,7 @@
   }
   .alamat{
     margin-top: 5px;
-    font-size: 12px;
+    font-size: 16px;
   }
   .warteg-ket{
     padding-left: 16px;
@@ -440,7 +559,6 @@
   }
   .bg-img-warteg{
     margin-top: 8px;
-    margin-left: -16px;
   }
   .warteg-name{
     font-size: 20px;
@@ -450,15 +568,16 @@
   .keterangan-warteg{
     width:277px;
     color:#888888;
+    font-size: 13px;
     margin-top: 8px;
   }
   .pelengkap{
     margin-top: 39px;
-    font-size:13px;
+    font-size:16px;
   }
   .menu{
     margin-top: 34px;
-    font-size: 13px;
+    font-size: 16px;
   }
   .lifeline{
     margin-top: 8px;
@@ -474,7 +593,7 @@
     padding: 16px 16px;
   }
   .konsultan{
-    font-size: 13px;
+    font-size: 16px;
     font-weight: bold;
     margin-top: 34px;
     color: #222222;
@@ -543,6 +662,15 @@
       color: #888888;
       line-height: 16px;
   }
-
+  /*SWIPER*/
+  .swiper .swiper-pagination .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #000;
+    opacity: .2;
+    -webkit-transition: all .5s ease;
+    transition: all .5s ease;
+}
 
 </style>

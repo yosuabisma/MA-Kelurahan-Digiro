@@ -1,22 +1,22 @@
 <template>
   <div class="main-page">
     <div class="header-img">
-      <div class="backTop spanLeft">
-        <img v-bind:src="'src/assets/img/arrow_back_white.svg'" width="24px" height="24px"/>
-      </div>
-      <div class="info spanRight">
+      <!--div class="backTop spanLeft">
+        <img class="blackArrow" v-bind:src="'src/assets/img/arrow_back.svg'" width="24px" height="24px"/>
+      </div-->
+      <!--div class="info spanRight">
         <img v-bind:src="'src/assets/img/info_white.svg'" v-on:click="gotoPage('/tentang-kelurahan')" width="24px" height="24px"/>
-      </div>
+      </div-->
     </div>
     <div class="main-content">
-      <div class="welcome">
+      <!--div class="welcome">
         <center>
           <img v-bind:src="'src/assets/img/group_5.png'" width="234px" height="187px"/>
         </center>
-      </div>
+      </div-->
       <div class="welcomeFont">
         <center>
-          Selamat Datang di Kelurahan Cikajang
+          Selamat Datang di {{kelurahan}}
         </center>
       </div>
       <center>
@@ -27,6 +27,11 @@
 </template>
 <script>
   export default {
+    data(){
+      return{
+        kelurahan:"Petogogan",
+      }
+    },
     methods: {
       gotoPage(route) {
         this.$router.push(route);
@@ -39,12 +44,16 @@
   .line24{
     line-height: 24px;
   }
+  .blackArrow{
+    -webkit-filter: invert(100%); /* Safari/Chrome */
+    filter: invert(100%);
+  }
   .header-img{
     padding: 16px 16px;
-    background-image: url('headerImg.png');
-    height: 180px;
+    background-image: url('cover-kelurahan/cover.png');
+    height: 321px;
     width: 360px;
-    max-height: 180px;
+    max-height: 321px;
     max-width: 360px;
   }
   .main-content{
@@ -54,7 +63,7 @@
     margin-top: 14px;
   }
   .info{
-    margin-top: 114px;
+    margin-top: 250px;
   }
   .spanLeft{
     float: left;
@@ -67,7 +76,7 @@
   }
   .welcomeFont{
     margin-top: 20px;
-    font-size: 20px;
+    font-size: 30px;
     color:#222222;
     font-weight: bold;
     height: 72px;
@@ -80,6 +89,6 @@
     font-size: 20px;
     color: #ffffff;
     padding: 11px;
-    margin-top: 63px;
+    margin-top: 80px;
   }
 </style>

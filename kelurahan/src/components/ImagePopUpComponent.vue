@@ -45,12 +45,12 @@ export default {
     }
     .popup-wrapper {
         display: table-cell;
-        vertical-align: bottom;
+        vertical-align: middle;
     }
     .popup-container {
-        width: 360px;
+        width: 200px;
+        height: 200px;
         margin: 0px auto;
-        padding-top: 36px;
         background-color: #fff;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
         transition: all .3s ease;
@@ -88,10 +88,10 @@ export default {
         width: 223px;
     }
     .slot-body-text-container {
-      padding: 25px 0px;
+    padding: 25px 0px;
     }
     .slot-footer {
-        padding: 30px 73px 30px 82px;
+        /*padding: 30px 73px 30px 82px;*/
     }
     .slot-footer-text-container > p {
         margin-left: 0px;

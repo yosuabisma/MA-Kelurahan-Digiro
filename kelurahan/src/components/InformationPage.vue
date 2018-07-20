@@ -1,8 +1,8 @@
 <template>
   <div class="information-page">
-    <div class="backTop">
+    <!--div class="backTop">
       <img class="blackArrow" v-bind:src="'src/assets/img/arrow_back.svg'"  v-on:click="gotoPage('/')" width="24px" height="24px"/>
-    </div>
+    </div-->
     <div class="titleInfo">
       Tentang Kelurahan
     </div>
